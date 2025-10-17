@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authorities Portal - Fill Details</title>
+    <style>
+        /* CSS for the Authorities Form */
+        body {
+            font-family: 'Verdana', sans-serif;
+            /* Colorful Background: Gradient Red/Yellow (More official/bold) */
+            background: linear-gradient(to right, #e44d26, #f16529);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+        .container {
+            background-color: #f4f4f4; /* Light Grey form background */
+            padding: 35px 45px;
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 550px;
+        }
+        h2 {
+            text-align: center;
+            color: #e44d26; /* Header color matching the gradient start */
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px dashed #f16529; /* Dashed separator */
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        input[type="text"], input[type="email"], select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: white;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus, input[type="email"]:focus, select:focus {
+            border-color: #e44d26; /* Highlight on focus */
+            outline: none;
+        }
+        button#submitBtn { /* Added ID for JS targeting */
+            width: 100%;
+            padding: 14px;
+            background-color: #1abc9c; /* Calmer Teal/Green button */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button#submitBtn:hover {
+            background-color: #a31414; /* Dark Red hover */
+        }
+
+        /* --- Custom Modal Styles --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7); /* Darker overlay for official feel */
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            max-width: 320px;
+            width: 90%;
+            animation: fadeIn 0.3s ease-out;
+        }
+        .modal-content h3 {
+            color: #e44d26; /* Match header color */
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        .modal-content button {
+            /* Using the main button color */
+            background-color: #1abc9c; 
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        .modal-content button:hover {
+            background-color: #159c7f;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Authority Staff Information</h2>
+        <!-- Added ID for JavaScript handling -->
+        <form id="authorityForm">
+            <div class="form-group">
+                <label for="staffId">Staff ID:</label>
+                <input type="text" id="staffId" name="staffId" required>
+            </div>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="authEmail">Official Email:</label>
+                <input type="email" id="authEmail" name="authEmail" required>
+            </div>
+            <div class="form-group">
+                <label for="department">Department:</label>
+                <select id="department" name="department" required>
+                    <option value="">Select Department</option>
+                    <option value="Admin">Administration</option>
+                    <option value="Finance">Finance</option>
+                    <option value="HR">Human Resources</option>
+                    <option value="Academics">Academics</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="position">Position/Title:</label>
+                <input type="text" id="position" name="position" required>
+            </div>
+            <!-- Added ID for JavaScript targeting -->
+            <button type="submit" id="submitBtn">Update Record</button>
+        </form>
+    </div>
+
+    <!-- Custom Confirmation Modal -->
+    <div id="confirmationModal" class="modal-overlay">
+        <div class="modal-content">
+            <h3>Record Updated</h3>
+            <p>Staff details have been successfully processed and updated.</p>
+            <!-- Added ID for JavaScript targeting -->
+            <button id="modalOkBtn">OK</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('authorityForm');
+            const modal = document.getElementById('confirmationModal');
+            const modalOkBtn = document.getElementById('modalOkBtn');
+            // Setting the dashboard redirection link here:
+            const dashboardUrl = './track.html'; 
+
+            // 1. Handle form submission
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Stop the default form submission
+
+                // Simulate data processing delay/success
+                console.log('Authority details submitted and simulated as updated.');
+
+                // 2. Show the custom modal
+                modal.style.display = 'flex';
+            });
+
+            // 3. Handle modal "OK" button click
+            modalOkBtn.addEventListener('click', () => {
+                // 3a. Hide the modal
+                modal.style.display = 'none';
+                
+                // 3b. Redirect to the Authority Dashboard page
+                window.location.href = dashboardUrl;
+            });
+        });
+    </script>
+</body>
+</html>

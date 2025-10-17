@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco-Action Hub: Earn Points & Badges!</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <style>
+        /* General Body and Background Styling */
+        body {
+            background-color: #f1f8e9; /* Light Green background */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+        }
+
+        /* Header Styling */
+        .header-section {
+            background-color: #4CAF50; /* Primary Green Header */
+            color: white;
+            padding: 30px 0;
+            margin-bottom: 30px;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            text-align: center;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-section h1 {
+            margin-bottom: 10px;
+            font-size: 2.8em;
+        }
+
+        .header-icon {
+            color: #FFEB3B; /* Yellow for contrast (Sun/Energy) */
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+        }
+
+        /* User Info Section */
+        .user-info-card {
+            background-color: #e8f5e9; /* Lighter green */
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border: 2px solid #81c784;
+        }
+
+        .user-info-card h4 {
+            color: #388E3C;
+            margin-bottom: 15px;
+        }
+
+        .user-info-card .points-display {
+            font-size: 2.2em;
+            font-weight: bold;
+            color: #d84315; /* Deep Orange for impact */
+            margin-bottom: 5px;
+        }
+
+        .user-info-card .badge-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .user-info-card .badge-item {
+            text-align: center;
+            width: 60px;
+            font-size: 0.75em;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .user-info-card .badge-item i {
+            font-size: 1.8em;
+            color: #1976D2; /* Blue for badges */
+            margin-bottom: 5px;
+        }
+
+
+        /* Task Card Styling */
+        .task-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            height: 100%; /* Ensures equal height in a row */
+        }
+
+        .task-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+        }
+
+        .task-card h3 {
+            color: #388E3C; /* Dark Green for task titles */
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .task-card .task-points {
+            font-weight: bold;
+            color: #d84315; /* Deep Orange */
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .task-card .task-description {
+            font-size: 0.95em;
+            color: #555;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .btn-upload-task {
+            background-color: #1976D2; /* Blue upload button */
+            border-color: #1976D2;
+            font-weight: bold;
+        }
+
+        .btn-upload-task:hover {
+            background-color: #1565C0;
+            border-color: #1565C0;
+        }
+
+        .task-status {
+            margin-top: 15px;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .status-pending {
+            background-color: #ffeb3b; /* Yellow */
+            color: #333;
+        }
+        .status-completed {
+            background-color: #81c784; /* Light Green */
+            color: white;
+        }
+        .status-awarded {
+            background-color: #4CAF50; /* Green */
+            color: white;
+        }
+
+        /* Footer Styling */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #388E3C;
+            color: white;
+            margin-top: 50px; /* More space before footer */
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header-section">
+        <div class="header-icon"><i class="fas fa-leaf"></i></div> 
+        <h1>Eco-Action Hub: Make an Impact!</h1>
+        <p class="lead mb-0">Complete tasks to earn Impact Points and unlock Eco-Badges.</p>
+    </header>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="user-info-card">
+                    <h4>Hello, Eco-Warrior!</h4>
+                    <div class="points-display" id="user-points">0</div>
+                    <p class="text-muted">Total Impact Points</p>
+                    <hr>
+                    <h5 class="mb-3 text-secondary"><i class="fas fa-trophy me-2"></i> Your Eco-Badges</h5>
+                    <div class="badge-grid" id="user-badges">
+                        <div class="badge-item">
+                            <i class="fas fa-seedling text-success"></i>
+                            <div class="badge-text">Newbie</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="text-center mb-4 mt-5" style="color: #388E3C;"><i class="fas fa-list-check me-2"></i> Available Eco-Missions</h2>
+        <div class="row g-4">
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="task-card">
+                    <h3>Plant a Tree</h3>
+                    <p class="task-points">+500 Points, +1 'Forest Creator' Badge</p>
+                    <p class="task-description">Take initiative to plant a new tree in your community or garden. Upload a photo of you with the newly planted tree, along with its location.</p>
+                    <input type="file" class="form-control mb-3" accept="image/*" id="task1-upload">
+                    <button class="btn btn-primary btn-upload-task w-100" data-task-id="1">Submit Proof</button>
+                    <span class="task-status mt-3 d-none" id="task1-status"></span>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="task-card">
+                    <h3>Local Cleanup Drive</h3>
+                    <p class="task-points">+300 Points, +1 'Clean Community' Badge</p>
+                    <p class="task-description">Organize or participate in a cleanup drive in your local park, street, or beach. Upload before-and-after photos of the area.</p>
+                    <input type="file" class="form-control mb-3" accept="image/*" id="task2-upload">
+                    <button class="btn btn-primary btn-upload-task w-100" data-task-id="2">Submit Proof</button>
+                    <span class="task-status mt-3 d-none" id="task2-status"></span>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="task-card">
+                    <h3>Awareness Content Creator</h3>
+                    <p class="task-points">+200 Points, +1 'Voice for Nature' Badge</p>
+                    <p class="task-description">Create an engaging social media post, blog entry, or poster about an environmental issue. Upload a screenshot or photo of your creation.</p>
+                    <input type="file" class="form-control mb-3" accept="image/*" id="task3-upload">
+                    <button class="btn btn-primary btn-upload-task w-100" data-task-id="3">Submit Proof</button>
+                    <span class="task-status mt-3 d-none" id="task3-status"></span>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="task-card">
+                    <h3>Water Saver Challenge</h3>
+                    <p class="task-points">+150 Points, +1 'Water Wise' Badge</p>
+                    <p class="task-description">Track and reduce your household water consumption for one week. Upload a photo of your water meter reading (before & after) or a short report.</p>
+                    <input type="file" class="form-control mb-3" accept="image/*" id="task4-upload">
+                    <button class="btn btn-primary btn-upload-task w-100" data-task-id="4">Submit Proof</button>
+                    <span class="task-status mt-3 d-none" id="task4-status"></span>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="task-card">
+                    <h3>Recycling Champion</h3>
+                    <p class="task-points">+100 Points, +1 'Recycle Ranger' Badge</p>
+                    <p class="task-description">Set up a new recycling system at home, school, or office, or educate others on proper recycling. Upload a photo of your setup or awareness material.</p>
+                    <input type="file" class="form-control mb-3" accept="image/*" id="task5-upload">
+                    <button class="btn btn-primary btn-upload-task w-100" data-task-id="5">Submit Proof</button>
+                    <span class="task-status mt-3 d-none" id="task5-status"></span>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="task-card text-muted border-dashed" style="border: 2px dashed #ccc;">
+                    <h3 class="text-secondary">New Challenges Coming Soon!</h3>
+                    <p class="task-points">+??? Points, +??? Badges</p>
+                    <p class="task-description">Stay tuned for more exciting eco-missions to boost your impact and earn exclusive rewards!</p>
+                    <button class="btn btn-outline-secondary w-100 disabled">Check Back Later</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Eco-Action Hub. Together, we can make a difference! 💚</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <!-- <script>
+        let userPoints = 0;
+        const userBadges = new Set(); // Use a Set to store unique badge names
+
+        const tasks = {
+            1: { points: 500, badge: { name: 'Forest Creator', icon: 'fas fa-tree text-success' } },
+            2: { points: 300, badge: { name: 'Clean Community', icon: 'fas fa-trash-restore text-info' } },
+            3: { points: 200, badge: { name: 'Voice for Nature', icon: 'fas fa-bullhorn text-warning' } },
+            4: { points: 150, badge: { name: 'Water Wise', icon: 'fas fa-tint text-primary' } },
+            5: { points: 100, badge: { name: 'Recycle Ranger', icon: 'fas fa-recycle text-secondary' } }
+        };
+
+        const userPointsElement = document.getElementById('user-points');
+        const userBadgesElement = document.getElementById('user-badges');
+
+        function updateDisplay() {
+            userPointsElement.textContent = userPoints.toLocaleString(); // Format points with commas
+            
+            // Clear existing badges (except the initial 'Newbie' badge if it's static)
+            // For this example, we'll re-render all dynamic badges
+            userBadgesElement.innerHTML = `<div class="badge-item"><i class="fas fa-seedling text-success"></i><div class="badge-text">Newbie</div></div>`; // Keep newbie badge
+
+            userBadges.forEach(badgeName => {
+                const task = Object.values(tasks).find(t => t.badge.name === badgeName);
+                if (task) {
+                    const badgeDiv = document.createElement('div');
+                    badgeDiv.className = 'badge-item';
+                    badgeDiv.innerHTML = `<i class="${task.badge.icon}"></i><div class="badge-text">${task.badge.name}</div>`;
+                    userBadgesElement.appendChild(badgeDiv);
+                }
+            });
+        }
+
+        document.querySelectorAll('.btn-upload-task').forEach(button => {
+            button.addEventListener('click', (event) => {
+                const taskId = event.target.dataset.taskId;
+                const fileInput = document.getElementById(`task${taskId}-upload`);
+                const taskStatusElement = document.getElementById(`task${taskId}-status`);
+
+                if (fileInput.files.length > 0) {
+                    // Simulate upload and approval process
+                    event.target.disabled = true;
+                    fileInput.disabled = true;
+                    taskStatusElement.classList.remove('d-none', 'status-pending', 'status-completed', 'status-awarded');
+                    taskStatusElement.classList.add('status-pending');
+                    taskStatusElement.textContent = 'Submitted for Review...';
+
+                    setTimeout(() => {
+                        // After a delay, simulate approval and reward
+                        const taskInfo = tasks[taskId];
+                        userPoints += taskInfo.points;
+                        userBadges.add(taskInfo.badge.name); // Add badge name to the Set
+
+                        updateDisplay();
+
+                        taskStatusElement.classList.remove('status-pending');
+                        taskStatusElement.classList.add('status-awarded');
+                        taskStatusElement.textContent = `Approved! +${taskInfo.points} Points & '${taskInfo.badge.name}' Badge!`;
+
+                        // Optional: remove button after successful submission
+                        event.target.remove();
+                        fileInput.remove();
+
+                    }, 3000); // Simulate 3 seconds review time
+
+                } else {
+                    alert('Please select an image to upload for this task!');
+                }
+            });
+        });
+
+        // Initialize display on page load
+        updateDisplay();
+    </script> -->
+<!-- <script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Map of taskId → task info
+    const tasks = {
+        1: {
+            name: "Plant a Tree",
+            description: "Take initiative to plant a new tree in your community or garden. Upload a photo of you with the newly planted tree, along with its location.",
+            points: 500,
+            badge: "Forest Creator"
+        },
+        2: {
+            name: "Local Cleanup Drive",
+            description: "Organize or participate in a cleanup drive in your local park, street, or beach.",
+            points: 300,
+            badge: "Clean Community"
+        },
+        3: {
+            name: "Awareness Content Creator",
+            description: "Create an engaging social media post, blog entry, or poster about an environmental issue. Upload a screenshot or photo of your creation.",
+            points: 200,
+            badge: "Voice for Nature"
+        },
+        4: {
+            name: "Water Saver Challenge",
+            description: "Track and reduce your household water consumption for one week. Upload a photo of your water meter reading (before & after) or a short report.",
+            points: 150,
+            badge: "Water Wise"
+        },
+        5: {
+            name: "Recycling Champion",
+            description: "Set up a new recycling system at home, school, or office, or educate others on proper recycling. Upload a photo of your setup or awareness material.",
+            points: 100,
+            badge: "Recycle Ranger"
+        }
+    };
+
+    const buttons = document.querySelectorAll('.btn-upload-task');
+    buttons.forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const taskId = btn.dataset.taskId;
+            const taskInfo = tasks[taskId];
+            const input = document.getElementById(`task${taskId}-upload`);
+            const status = document.getElementById(`task${taskId}-status`);
+
+            if (!input.files[0]) {
+                alert("Please select an image first!");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("image", input.files[0]);
+            formData.append("taskName", taskInfo.name);
+            formData.append("taskDescription", taskInfo.description);
+
+            status.classList.remove('d-none');
+            status.textContent = "Verifying...";
+
+            try {
+                const response = await fetch("http://127.0.0.1:5000/api/verify-task", {
+                    method: "POST",
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.verified) {
+                    status.textContent = `✅ Verified! You earned +${taskInfo.points} points and '${taskInfo.badge}' badge.`;
+                    // Update UI points
+                    const pointsEl = document.getElementById("user-points");
+                    pointsEl.textContent = parseInt(pointsEl.textContent) + taskInfo.points;
+                    // Add badge
+                    const badgeContainer = document.getElementById("user-badges");
+                    const badgeItem = document.createElement("div");
+                    badgeItem.classList.add("badge-item");
+                    badgeItem.innerHTML = `<i class="fas fa-seedling text-success"></i><div class="badge-text">${taskInfo.badge}</div>`;
+                    badgeContainer.appendChild(badgeItem);
+                } else {
+                    status.textContent = `❌ Not verified: ${result.comment}`;
+                }
+            } catch (err) {
+                console.error(err);
+                status.textContent = "❌ Error verifying task";
+            }
+        });
+    });
+});
+
+</script> -->
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+    const STUDENT_ID = localStorage.getItem("studentId");
+    if (!STUDENT_ID) {
+        alert("No student ID found. Please log in.");
+        return;
+    }
+
+    // Fetch student info from backend
+    let studentData = {};
+    try {
+        const res = await fetch(`http://127.0.0.1:5000/api/student/${STUDENT_ID}`);
+        studentData = await res.json();
+
+        // Update points
+        document.getElementById("user-points").textContent = studentData.points || 0;
+
+        // Update badges
+        const badgeContainer = document.getElementById("user-badges");
+        badgeContainer.innerHTML = ""; // Clear default
+        studentData.badges.forEach(badge => {
+            const badgeItem = document.createElement("div");
+            badgeItem.classList.add("badge-item");
+            badgeItem.innerHTML = `<i class="fas fa-seedling text-success"></i><div class="badge-text">${badge}</div>`;
+            badgeContainer.appendChild(badgeItem);
+        });
+    } catch (err) {
+        console.error("Failed to fetch student data:", err);
+    }
+
+    // Task mapping
+    const tasks = {
+        1: { name: "Plant a Tree", description: "Take initiative...", points: 500, badge: "Forest Creator" },
+        2: { name: "Local Cleanup Drive", description: "Organize or participate...", points: 300, badge: "Clean Community" },
+        3: { name: "Awareness Content Creator", description: "Create an engaging post...", points: 200, badge: "Voice for Nature" },
+        4: { name: "Water Saver Challenge", description: "Track and reduce water...", points: 150, badge: "Water Wise" },
+        5: { name: "Recycling Champion", description: "Set up a new recycling system...", points: 100, badge: "Recycle Ranger" }
+    };
+
+    // Handle task uploads
+    const buttons = document.querySelectorAll('.btn-upload-task');
+    buttons.forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const taskId = btn.dataset.taskId;
+            const taskInfo = tasks[taskId];
+            const input = document.getElementById(`task${taskId}-upload`);
+            const status = document.getElementById(`task${taskId}-status`);
+
+            if (!input.files[0]) {
+                alert("Please select an image first!");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("image", input.files[0]);
+            formData.append("taskName", taskInfo.name);
+            formData.append("taskDescription", taskInfo.description);
+            formData.append("studentId", STUDENT_ID);
+            formData.append("points", taskInfo.points);
+            formData.append("badge", taskInfo.badge);
+
+            status.classList.remove('d-none');
+            status.textContent = "Verifying...";
+
+            try {
+                const response = await fetch("http://127.0.0.1:5000/api/verify-task", {
+                    method: "POST",
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.verified) {
+                    status.textContent = `✅ Verified! You earned +${taskInfo.points} points and '${taskInfo.badge}' badge.`;
+
+                    // Update points
+                    studentData.points += taskInfo.points;
+                    document.getElementById("user-points").textContent = studentData.points;
+
+                    // Update badges if not already present
+                    if (!studentData.badges.includes(taskInfo.badge)) {
+                        studentData.badges.push(taskInfo.badge);
+                        const badgeContainer = document.getElementById("user-badges");
+                        const badgeItem = document.createElement("div");
+                        badgeItem.classList.add("badge-item");
+                        badgeItem.innerHTML = `<i class="fas fa-seedling text-success"></i><div class="badge-text">${taskInfo.badge}</div>`;
+                        badgeContainer.appendChild(badgeItem);
+                    }
+                } else {
+                    status.textContent = `❌ Not verified: ${result.comment}`;
+                }
+            } catch (err) {
+                console.error(err);
+                status.textContent = "❌ Error verifying task";
+            }
+        });
+    });
+});
+</script>
+
+</body>
+</html>

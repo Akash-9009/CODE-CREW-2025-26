@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Environmental Issues</title>
+    <style>
+        /* General Body and Background Styling */
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%); /* Light Blue/Teal Gradient */
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #00bcd4; /* Cyan Header */
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        /* Container for the Issues */
+        .issues-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 30px 15px;
+            gap: 25px; /* Space between issue cards */
+        }
+        
+        /* Anchor Tag Styling to make the whole card clickable */
+        .issue-link {
+            text-decoration: none; /* Remove underline from the link */
+            color: inherit; /* Inherit text color */
+            width: 90%;
+            max-width: 350px;
+        }
+
+        /* Individual Issue Card Styling */
+        .issue-card {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%; /* Important for consistent appearance */
+        }
+
+        .issue-card:hover {
+            transform: translateY(-5px); /* Lift effect on hover */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            cursor: pointer; /* Change cursor to pointer */
+        }
+
+        /* Issue Title Styling */
+        .issue-card h2 {
+            font-size: 1.6em;
+            margin-top: 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid;
+            display: inline-block;
+        }
+
+        /* Color Coding for Specific Issues */
+        .climate-change h2 { border-color: #ff6347; color: #ff6347; } /* Tomato Red */
+        .deforestation h2 { border-color: #4caf50; color: #4caf50; } /* Green */
+        .water-scarcity h2 { border-color: #2196f3; color: #2196f3; } /* Blue */
+        .plastic-pollution h2 { border-color: #ffc107; color: #ffc107; } /* Amber Yellow */
+        .biodiversity-loss h2 { border-color: #9c27b0; color: #9c27b0; } /* Purple */
+
+        /* Paragraph Styling (Optional, included for completeness if you add text) */
+        .issue-card p {
+            font-size: 1em;
+            text-align: left;
+            margin-top: 15px;
+        }
+
+        /* Footer Styling */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #00bcd4;
+            color: white;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Five Critical Global Environmental Issues 🌍</h1>
+    </header>
+
+    <div class="issues-container">
+
+        <a href="./climate.html" class="issue-link">
+            <div class="issue-card climate-change">
+                <h2>🔥 1. Climate Change</h2>
+                <p>The long-term shift in global weather patterns, primarily driven by human emissions of greenhouse gases.</p>
+            </div>
+        </a>
+
+        <a href="./defor.html" class="issue-link">
+            <div class="issue-card deforestation">
+                <h2>🌳 2. Deforestation</h2>
+                <p>The permanent destruction of forests to make land available for other uses, leading to habitat loss and higher CO₂ levels.</p>
+            </div>
+        </a>
+
+        <a href="./water.html" class="issue-link">
+            <div class="issue-card water-scarcity">
+                <h2>💧 3. Water Scarcity</h2>
+                <p>The lack of sufficient available fresh water resources to meet demand, affecting agriculture, sanitation, and health.</p>
+            </div>
+        </a>
+
+        <a href="./palstic.html" class="issue-link">
+            <div class="issue-card plastic-pollution">
+                <h2>🗑️ 4. Plastic Pollution</h2>
+                <p>The accumulation of plastic products in the environment, especially the ocean, harming wildlife and ecosystems.</p>
+            </div>
+        </a>
+
+        <a href="./biodiversity.html" class="issue-link">
+            <div class="issue-card biodiversity-loss">
+                <h2>🦋 5. Biodiversity Loss</h2>
+                <p>The extinction or decline of species worldwide, threatening the stability and health of ecosystems.</p>
+            </div>
+        </a>
+
+    </div>
+
+    <footer>
+        <p>Information presented for educational purposes. Awareness is the first step to action. 🌱</p>
+    </footer>
+
+</body>
+</html>

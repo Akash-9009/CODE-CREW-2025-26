@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal - Fill Details</title>
+    <style>
+        /* CSS for the Student Form */
+        body {
+            font-family: 'Arial', sans-serif;
+            /* Colorful Background: Gradient Blue/Purple */
+            background: linear-gradient(135deg, #6dd5ed, #2193b0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #333; /* Dark text for contrast */
+        }
+        .container {
+            background-color: #ffffff; /* White form background */
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 500px;
+        }
+        h2 {
+            text-align: center;
+            color: #2193b0; /* Header color matching the gradient start */
+            margin-bottom: 25px;
+            border-bottom: 2px solid #2193b0;
+            padding-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"], input[type="email"], input[type="date"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; 
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus, input[type="email"]:focus, input[type="date"]:focus, select:focus {
+            border-color: #6dd5ed; /* Highlight on focus */
+            outline: none;
+        }
+        button#submitBtn { /* Specific selector for submit button */
+            width: 100%;
+            padding: 12px;
+            background-color: #f7971e; /* Vibrant Orange button */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button#submitBtn:hover {
+            background-color: #f94c55;
+        }
+
+        /* --- Custom Modal Styles --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 300px;
+            width: 90%;
+            animation: fadeIn 0.3s ease-out;
+        }
+        .modal-content h3 {
+            color: #28a745; /* Success green */
+            margin-bottom: 15px;
+        }
+        .modal-content button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        .modal-content button:hover {
+            background-color: #1e7e34;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Student Details Submission</h2>
+        <!-- Form action removed, submission handled by JavaScript -->
+        <form id="studentForm">
+            <div class="form-group">
+                <label for="studentId">Student ID:</label>
+                <input type="text" id="studentId" name="studentId" required>
+            </div>
+            <div class="form-group">
+                <label for="fullName">Full Name:</label>
+                <input type="text" id="fullName" name="fullName" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob" required>
+            </div>
+            <div class="form-group">
+                <label for="major">Major/Course:</label>
+                <select id="major" name="major" required>
+                    <option value="">Select your course</option>
+                    <option value="CS">Computer Science</option>
+                    <option value="EE">Electrical Engineering</option>
+                    <option value="MBA">Business Administration</option>
+                    <option value="Arts">Liberal Arts</option>
+                </select>
+            </div>
+            <!-- Added ID for easier JavaScript targeting -->
+            <button type="submit" id="submitBtn">Submit Details</button>
+        </form>
+    </div>
+
+    <!-- Custom Confirmation Modal -->
+    <div id="confirmationModal" class="modal-overlay">
+        <div class="modal-content">
+            <h3>Success! 🎉</h3>
+            <p>Your details have been successfully stored.</p>
+            <button id="modalOkBtn">OK</button>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('studentForm');
+            const modal = document.getElementById('confirmationModal');
+            const modalOkBtn = document.getElementById('modalOkBtn');
+            const dashboardUrl = './features.html';
+
+            // 1. Handle form submission
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Stop the default page reload
+
+                // 2. Collect data from form inputs
+                const formData = new FormData(form);
+                const data = {
+                    studentId: formData.get('studentId'),
+                    fullName: formData.get('fullName'),
+                    email: formData.get('email'),
+                    dob: formData.get('dob'),
+                    major: formData.get('major'),
+                    // In a real login system, you'd have a password field
+                    password: "defaultPassword123" // Placeholder password
+                };
+
+                // 3. Send data to the backend API using fetch()
+                fetch('http://127.0.0.1:5000/api/register/student', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        // If the server response is an error (like 409 Conflict)
+                        return response.json().then(err => { throw new Error(err.error) });
+                    }
+                    return response.json(); // Parse the successful JSON response
+                })
+                .then(result => {
+                    // 4. Handle a successful response
+                    console.log('Success:', result);
+                    localStorage.setItem('studentId', data.studentId);
+                    modal.style.display = 'flex'; // Show the success modal
+                })
+                .catch(error => {
+                    // 5. Handle any errors during the fetch operation
+                    console.error('Error:', error);
+                    alert('Registration failed: ' + error.message);
+                });
+            });
+
+            // This part remains the same: it handles the modal "OK" button
+            modalOkBtn.addEventListener('click', () => {
+                modal.style.display = 'none';
+                window.location.href = dashboardUrl;
+            });
+        });
+    </script>
+    
+</body>
+</html>

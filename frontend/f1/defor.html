@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deforestation: 5 Video Resources</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* Earthy Green Gradient Background */
+            background: linear-gradient(to right bottom, #a8e063, #56ab2f, #38761d); /* Light Green, Medium Green, Dark Green */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #333;
+        }
+
+        .header-section {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px 0;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .header-section h1 {
+            color: #38761d; /* Dark Green */
+            font-weight: 700;
+            font-size: 2.8em;
+            margin-bottom: 10px;
+        }
+
+        .header-section p {
+            color: #555;
+            font-size: 1.1em;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden; /* Ensures image corners are rounded */
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: #ffffff;
+        }
+
+        .card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-img-top-placeholder {
+            height: 180px; /* Fixed height for image area */
+            background-size: cover;
+            background-position: center;
+            background-color: #f0f0f0; /* Fallback background */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-style: italic;
+            border-bottom: 1px solid #eee;
+            position: relative;
+        }
+
+        .card-img-top-placeholder::before {
+            content: "▶"; /* Play icon */
+            font-size: 3em;
+            color: rgba(255, 255, 255, 0.8);
+            position: absolute;
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-title {
+            color: #56ab2f; /* Medium Green */
+            font-weight: 600;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            font-size: 0.95em;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .btn-primary {
+            background-color: #a8e063; /* Light Green */
+            border-color: #a8e063;
+            color: #333; /* Darker text for contrast on light green */
+            font-weight: 600;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #8cd64f;
+            border-color: #8cd64f;
+            color: #333;
+        }
+
+        footer {
+            margin-top: auto; /* Pushes footer to the bottom */
+            background-color: rgba(0, 0, 0, 0.3);
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-section">
+        <div class="container">
+            <h1>🌳 Deforestation: Understanding the Impact</h1>
+            <p>Explore these insightful videos to learn more about the critical environmental issue of deforestation, its causes, effects, and potential solutions.</p>
+        </div>
+    </div>
+
+    <main class="container py-5">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="video-cards-container">
+            </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Environmental Awareness Project. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+    <script>
+        const videos = [
+            {
+                title: "Climate 101: Deforestation",
+                description: "National Geographic explains the causes and global effects of deforestation.",
+                youtubeId: "Ic-J6hcSKa8",
+                link: "https://www.youtube.com/watch?v=Ic-J6hcSKa8"
+            },
+            {
+                title: "Deforestation | Causes, Effects & Solutions",
+                description: "An animated video simplifying deforestation for a younger audience, covering key aspects.",
+                youtubeId: "-01T9e6VDWU",
+                link: "https://www.youtube.com/watch?v=-01T9e6VDWU"
+            },
+            {
+                title: "What If All Trees Were Cut Down?",
+                description: "The Dr. Binocs Show explores a hypothetical world without trees and its catastrophic consequences.",
+                youtubeId: "6x8IuJlcXTk",
+                link: "https://www.youtube.com/watch?v=6x8IuJlcXTk"
+            },
+            {
+                title: "The Tragedy Of Deforestation | Climate Change: The Facts",
+                description: "A powerful segment from BBC Earth highlighting the severe impact of deforestation.",
+                youtubeId: "B5Fwl4P4EW8",
+                link: "https://www.youtube.com/watch?v=B5Fwl4P4EW8"
+            },
+            {
+                title: "Stopping Deforestation - The Case for Nature Based Solutions",
+                description: "Discusses nature-based solutions and global efforts to halt and reverse deforestation.",
+                youtubeId: "0b-j_i4L9B4", // Example YouTube Video ID
+                link: "https://youtu.be/6x8IuJlcXTk?si=KXYLQzi1AYfWwDIH"
+            }
+        ];
+
+        const videoCardsContainer = document.getElementById('video-cards-container');
+
+        videos.forEach(video => {
+            const colDiv = document.createElement('div');
+            colDiv.className = 'col';
+
+            const card = document.createElement('div');
+            card.className = 'card h-100'; // h-100 makes cards equal height
+
+            const imgPlaceholder = document.createElement('div');
+            imgPlaceholder.className = 'card-img-top-placeholder';
+            // Construct YouTube thumbnail URL
+            imgPlaceholder.style.backgroundImage = `url(https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg)`;
+            imgPlaceholder.setAttribute('aria-label', `Thumbnail for ${video.title}`);
+
+
+            const cardBody = document.createElement('div');
+            cardBody.className = 'card-body d-flex flex-column'; // Use flex for button alignment
+
+            const cardTitle = document.createElement('h5');
+            cardTitle.className = 'card-title';
+            cardTitle.textContent = video.title;
+
+            const cardText = document.createElement('p');
+            cardText.className = 'card-text';
+            cardText.textContent = video.description;
+
+            const watchButton = document.createElement('a');
+            watchButton.href = video.link;
+            watchButton.target = '_blank'; // Open in new tab
+            watchButton.className = 'btn btn-primary mt-auto'; // mt-auto pushes button to bottom
+            watchButton.textContent = 'Watch Video';
+
+            cardBody.appendChild(cardTitle);
+            cardBody.appendChild(cardText);
+            cardBody.appendChild(watchButton);
+
+            card.appendChild(imgPlaceholder);
+            card.appendChild(cardBody);
+            colDiv.appendChild(card);
+            videoCardsContainer.appendChild(colDiv);
+        });
+    </script>
+
+</body>
+</html>
